@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CapstoneCMSC22:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CapstoneCMSC22_jar</output-path>
+    <root id="archive" name="CapstoneCMSC22.jar">
+      <element id="module-output" name="CapstoneCMSC22" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jars/slick.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jars/jorbis-0.0.15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jars/lwjgl_util.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jars/jogg-0.0.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jars/lwjgl.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
