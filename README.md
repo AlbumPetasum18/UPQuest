@@ -1,21 +1,21 @@
 # UPQuest
 CMSC 22 Capstone
 
-Wiki available!
+**Wiki available!**
 
 This project is still on going.
 
-Two levels are availble yet available yet.
+Two levels are availble yet.
 
-//NOTE//
+**NOTE**
 
 Added runnable jar file (prototype2)
 
-Click on this <a href="https://drive.google.com/open?id=0B-U4TqqTklD9dnNnQlZNSmRwYUU">LINK</a> to download.
+**Click on this <a href="https://drive.google.com/open?id=0B-U4TqqTklD9dnNnQlZNSmRwYUU">LINK</a> to download.**
 
 Enjoy!
 
-//TODO//
+**TODO**
 
 --add more functionalities for each level
 
@@ -32,6 +32,8 @@ Enjoy!
 --fade in and out transitions
 
 --fix bugs
+
+--working game buttons
 
 
 
