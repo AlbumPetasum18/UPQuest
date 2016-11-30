@@ -17,24 +17,11 @@ Enjoy!
 
 **TODO**
 
---add more functionalities for each level
-
 --add more levels
 
 --as level progresses, difficulty should as well
 
---improve graphics
-
 --put comments for readability
 
---for game state involving hp, add hp
-
---fade in and out transitions
-
 --fix bugs
-
---working game buttons
-
-
-
 
