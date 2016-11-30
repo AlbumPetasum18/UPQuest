@@ -7,26 +7,28 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class PlayTwo extends BasicGameState{
 
-    Animation mm, up, down, left, right, stay;
-    Image map, spider1, spider2, spider3, spider4, spider5, spider6, spider7, gameover, playagain;
+    private Animation akira, up, down, left, right, stay, complete;
+    private Image map, spider1, spider2, spider3, spider4, spider5, spider6, spider7, gameover, playagain;
 
-    boolean quit = false;
-    boolean gameOver = false;
+    private boolean quit = false;
+    private boolean gameOver = false;
 
-    int[] duration = {200, 200, 200, 200, 200, 200, 200, 200, 200};
-    int rightLimit = 620, leftLimit = -30;
-    int upLimit = 245, downLimit = 200;
-    int limitspider = 230;
-    int mousePosX, mousePosY;
+    private int[] duration = {200, 200, 200, 200, 200, 200, 200, 200, 200};
+    private int rightLimit = 620, leftLimit = -30;
+    private int upLimit = 245, downLimit = 200;
+    private int limitspider = 230;
+    private int mousePosX, mousePosY;
 
-    float shiftX = -10;
-    float shiftY = 200;
-    float web1 = 350, web2 = 251, web3 = -30, web4 = 380, web5 = 300, web6 = -1, web7 = 350;
-    float speed1, speed2, speed3, speed4, speed5, speed6, speed7;
-    float rectwidth = 0.5f;
+    private float shiftX = -10;
+    private float shiftY = 200;
+    private float web1 = 350, web2 = 251, web3 = -30, web4 = 380, web5 = 300, web6 = -1, web7 = 350;
+    private float speed1, speed2, speed3, speed4, speed5, speed6, speed7;
+    private float rectwidth = 0.5f;
 
-    Music back;
-    Sound collide, gov;
+    private Music back;
+    private Sound collide, gov;
+
+    private Input input;
 
 
     public PlayTwo(int state){
@@ -35,7 +37,7 @@ public class PlayTwo extends BasicGameState{
 
     @Override
     public int getID() {
-        return 5;
+        return 3;
     }
 
     @Override
@@ -48,10 +50,11 @@ public class PlayTwo extends BasicGameState{
         spider5 = new Image("res/spid5.png");
         spider6 = new Image("res/spid6.png");
         spider7 = new Image("res/spid7.png");
-        back = new Music("res/backtunnel.ogg");
-        collide = new Sound("res/collide.ogg");
         gameover = new Image("res/gameOver.png");
         playagain = new Image("res/playAgain.png");
+
+        back = new Music("res/backtunnel.ogg");
+        collide = new Sound("res/collide.ogg");
         gov = new Sound("res/gov.ogg");
 
         Image[] walkUp = {new Image("res/wu1.png"), new Image("res/wu2.png"), new Image("res/wu3.png"), new Image("res/wu4.png"), new Image("res/wu5.png"), new Image("res/wu6.png"), new Image("res/wu7.png"), new Image("res/wu8.png"), new Image("res/wd9.png")};
@@ -59,23 +62,26 @@ public class PlayTwo extends BasicGameState{
         Image[] walkLeft = {new Image("res/wl1.png"), new Image("res/wl2.png"), new Image("res/wl3.png"), new Image("res/wl4.png"), new Image("res/wl5.png"), new Image("res/wl6.png"), new Image("res/wl7.png"), new Image("res/wl8.png"), new Image("res/wl9.png")};
         Image[] walkRight = {new Image("res/wr1.png"), new Image("res/wr2.png"), new Image("res/wr3.png"), new Image("res/wr4.png"), new Image("res/wr5.png"), new Image("res/wr6.png"), new Image("res/wr7.png"), new Image("res/wr8.png"), new Image("res/wr9.png")};
         Image[] steady = {new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png")};
+        Image[] nextLevel = {new Image("res/nextLevel.png"), new Image("res/nextLevel1.png"), new Image("res/nextLevel2.png"), new Image("res/nextLevel3.png"), new Image("res/nextLevel4.png"), new Image("res/nextLevel.png"), new Image("res/nextLevel1.png"), new Image("res/nextLevel2.png"), new Image("res/nextLevel3.png")};
         up = new Animation(walkUp, duration, true);
         down = new Animation(walkDown, duration, true);
         left = new Animation(walkLeft, duration, true);
         right = new Animation(walkRight, duration, true);
         stay = new Animation(steady, duration, true);
+        complete = new Animation(nextLevel, duration, true);
 
-        mm = stay;
+        akira = stay;
 
     }
 
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
+        input = gameContainer.getInput();
 
         map.draw(0, 0, map.getWidth(), map.getHeight());
 
         //graphics.drawString("Akira X: " + shiftX + "\nAkira Y: " + shiftY, 400, 25);
-        mm.draw(shiftX, shiftY, mm.getWidth(), mm.getHeight());
+        akira.draw(shiftX, shiftY, akira.getWidth(), akira.getHeight());
 
 
         graphics.drawRect(leftLimit + 90, 0, rectwidth, web1+10);
@@ -99,7 +105,7 @@ public class PlayTwo extends BasicGameState{
         graphics.drawRect(leftLimit + 570, 0, rectwidth, web7+10);
         spider7.draw(leftLimit + 545, web7, spider7.getWidth(), spider7.getHeight());
 
-        if(gameOver == false){
+        if(!gameOver){
 
             if((shiftX > leftLimit + 45 && shiftX < leftLimit + 100) && (web1 > shiftY - 25)){
                 collide.play();
@@ -145,16 +151,19 @@ public class PlayTwo extends BasicGameState{
             playagain.draw(250, 250);
         }
 
-        if(shiftX > leftLimit + 620 && gameOver == false){
+        if(shiftX > leftLimit + 620 && !gameOver){
              // INSERT NEXT LEVEL
-            stateBasedGame.enterState(0);
+            complete.draw(60, 10);
+            if(input.isKeyDown(Input.KEY_ENTER)) {
+                stateBasedGame.enterState(0);
+            }
         }
 
-        if(quit == true){
+        if(quit){
             graphics.drawString("Resume (R)", 250, 100);
             graphics.drawString("Main Menu (M)", 250, 150);
             graphics.drawString("Quit Game (Q)", 250, 200);
-            if(quit == false){
+            if(!quit){
                 graphics.clear();
             }
         }
@@ -163,8 +172,8 @@ public class PlayTwo extends BasicGameState{
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) throws SlickException {
 
-        Input input = gameContainer.getInput();
-        mm = stay;
+
+        akira = stay;
 
         if(web1 < 0){
             speed1 = -.35f;
@@ -220,14 +229,14 @@ public class PlayTwo extends BasicGameState{
         web7 -= i * speed7;
 
         if(input.isKeyDown(Input.KEY_UP)){
-            mm = up;
+            akira = up;
             shiftY -= i * .1f;
             if(shiftY < upLimit){
                 shiftY += i * .1f;
             }
         }
         if(input.isKeyDown(Input.KEY_DOWN)){
-            mm = down;
+            akira = down;
             shiftY += i * .1f;
             if(shiftY > downLimit){
                 shiftY -= i * .1f;
@@ -237,14 +246,14 @@ public class PlayTwo extends BasicGameState{
             }
         }
         if(input.isKeyDown(Input.KEY_RIGHT)){
-            mm = right;
+            akira = right;
             shiftX += i * .1f;
             if(shiftX > rightLimit){
                 shiftX -= i * .1f;
             }
         }
         if(input.isKeyDown(Input.KEY_LEFT)){
-            mm = left;
+            akira = left;
             shiftX -= i * .1f;
             if(shiftX < leftLimit + 25){
                 shiftX += i * .1f;
@@ -252,11 +261,14 @@ public class PlayTwo extends BasicGameState{
         }
 
         mousePosX = Mouse.getX();
-        mousePosY = Mouse.getY();   //make this play again button work
+        mousePosY = Mouse.getY();
 
         if((mousePosX > 250 && mousePosX < 250+playagain.getWidth()) && (mousePosY > 80 && mousePosY < 110)){
             if(Mouse.isButtonDown(0)) {
-               System.exit(0);
+               gameOver = false;
+                shiftX = -10;
+                shiftY = 200;
+                back.play();
             }
         }
 
@@ -264,7 +276,7 @@ public class PlayTwo extends BasicGameState{
         if(input.isKeyDown(Input.KEY_ESCAPE)){
             quit = true;
         }
-        if(quit == true){
+        if(quit){
             if(input.isKeyDown(Input.KEY_R)){
                 quit = false;
             }

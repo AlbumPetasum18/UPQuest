@@ -8,12 +8,12 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class WelcomeScreen extends BasicGameState{
 
-    Image welcome;
-    Music back;
+    private Image welcome;
+    private Music back;
 
-    boolean quit = false;
+    private boolean quit = false;
 
-    int mousePosX, mousePosY;
+    private int mousePosX, mousePosY;
 
     public WelcomeScreen(int state){
 
@@ -48,7 +48,7 @@ public class WelcomeScreen extends BasicGameState{
         if(input.isKeyDown(Input.KEY_ESCAPE)){
             quit = true;
         }
-        if(quit == true){
+        if(quit){
             if(input.isKeyDown(Input.KEY_R)){
                 quit = false;
             }
@@ -65,7 +65,7 @@ public class WelcomeScreen extends BasicGameState{
 
         if((mousePosX > 275 && mousePosX < 365) && (mousePosY > 125 && mousePosY < 175)){
             if(Mouse.isButtonDown(0)) {
-                stateBasedGame.enterState(3, new FadeOutTransition(), new FadeInTransition());
+                stateBasedGame.enterState(2, new FadeOutTransition(), new FadeInTransition());
             }
         }
     }

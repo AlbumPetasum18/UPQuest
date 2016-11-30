@@ -7,12 +7,12 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class Menu extends BasicGameState{
 
-    Image bg, quit, play;
-    Animation animateTitle;
-    int xpos, ypos;
-    int[] duration = {500, 500};
-    Music back;
-    Sound playgame;
+    private Image bg, quit, play;
+    private Animation animateTitle;
+    private int xpos, ypos;
+    private int[] duration = {500, 500};
+    private Music back;
+    private Sound playgame;
 
     public Menu(int state){
 
