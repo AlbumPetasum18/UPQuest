@@ -219,7 +219,7 @@ public class Play extends BasicGameState{
             e.printStackTrace();
         }
         back.loop();
-        back.setVolume(2.0f);
+        back.setVolume(3.0f);
     }
 
     public void leave(GameContainer gc, StateBasedGame sbg){

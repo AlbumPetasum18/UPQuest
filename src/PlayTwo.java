@@ -155,7 +155,7 @@ public class PlayTwo extends BasicGameState{
              // INSERT NEXT LEVEL
             complete.draw(60, 10);
             if(input.isKeyDown(Input.KEY_ENTER)) {
-                stateBasedGame.enterState(0);
+                stateBasedGame.enterState(4, new FadeOutTransition(), new FadeInTransition());
             }
         }
 
@@ -265,10 +265,7 @@ public class PlayTwo extends BasicGameState{
 
         if((mousePosX > 250 && mousePosX < 250+playagain.getWidth()) && (mousePosY > 80 && mousePosY < 110)){
             if(Mouse.isButtonDown(0)) {
-               gameOver = false;
-                shiftX = -10;
-                shiftY = 200;
-                back.play();
+                reset();
             }
         }
 
@@ -289,6 +286,14 @@ public class PlayTwo extends BasicGameState{
         }
     }
 
+    private void reset(){
+        gameOver = false;
+        web1 = 350; web2 = 251; web3 = -30; web4 = 380; web5 = 300; web6 = -1; web7 = 350;
+        shiftX = -10;
+        shiftY = 200;
+        back.play();
+    }
+
     public void enter(GameContainer gameContainer, StateBasedGame stateBasedGame){
         try{
             super.enter(gameContainer, stateBasedGame);
@@ -296,7 +301,7 @@ public class PlayTwo extends BasicGameState{
             e.printStackTrace();
         }
         back.loop();
-        back.setVolume(1.0f);
+        back.setVolume(3.0f);
     }
 
     public void leave(GameContainer gameContainer, StateBasedGame stateBasedGame){
