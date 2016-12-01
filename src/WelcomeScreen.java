@@ -26,10 +26,9 @@ public class WelcomeScreen extends BasicGameState{
 
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-        welcome = new Image("res/welcome.png");
+        welcome = new Image("res/welcomescreen/welcome.png");
+
         back = new Music("res/back.ogg");
-
-
 
     }
 

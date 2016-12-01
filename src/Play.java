@@ -35,14 +35,14 @@ public class Play extends BasicGameState{
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 
-        map = new Image("res/back3.jpg");
-        one = new Image("res/bat.png");
-        two = new Image("res/hat.png");
-        three = new Image("res/handcuff.png");
-        four = new Image("res/gun.png");
-        five = new Image("res/clock.png");
-        six = new Image("res/shoe.png");
-        seven = new Image("res/badge.png");
+        map = new Image("res/play/back3.jpg");
+        one = new Image("res/play/bat.png");
+        two = new Image("res/play/hat.png");
+        three = new Image("res/play/handcuff.png");
+        four = new Image("res/play/gun.png");
+        five = new Image("res/play/clock.png");
+        six = new Image("res/play/shoe.png");
+        seven = new Image("res/play/badge.png");
 
         back = new Music("res/back.ogg");
         space = new Sound("res/space.ogg");
@@ -56,6 +56,8 @@ public class Play extends BasicGameState{
         Image[] steady = {new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png")};
         Image[] bendiffound = {new Image("res/bend2.png"), new Image("res/bend2.png"), new Image("res/bend3.png"), new Image("res/bend3.png"), new Image("res/bend4.png"), new Image("res/bend4.png"), new Image("res/bend4.png"), new Image("res/bend2.png"), new Image("res/bend1.png")};
         Image[] nextLevel = {new Image("res/nextLevel.png"), new Image("res/nextLevel1.png"), new Image("res/nextLevel2.png"), new Image("res/nextLevel3.png"), new Image("res/nextLevel4.png"), new Image("res/nextLevel.png"), new Image("res/nextLevel1.png"), new Image("res/nextLevel2.png"), new Image("res/nextLevel3.png")};
+
+
         up = new Animation(walkUp, duration, true);
         down = new Animation(walkDown, duration, true);
         left = new Animation(walkLeft, duration, true);
@@ -129,6 +131,7 @@ public class Play extends BasicGameState{
         akira = stay;
 
         if(input.isKeyDown(Input.KEY_UP)){
+
             akira = up;
             shiftY -= delta * .1f;
             if(shiftY < upLimit){

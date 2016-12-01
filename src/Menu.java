@@ -20,15 +20,18 @@ public class Menu extends BasicGameState{
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        bg = new Image("res/ImpelDown.png");
-        quit = new Image("res/quitGame.png");
-        play = new Image("res/playGame.png");
+        bg = new Image("res/menu/ImpelDown.png");
+        quit = new Image("res/menu/quitGame.png");
+        play = new Image("res/menu/playGame.png");
+
         back = new Music("res/back.ogg");
         playgame = new Sound("res/play.ogg");
 
-        Image[] title = {new Image("res/title.png"), new Image("res/title2.png")};
+        Image[] title = {new Image("res/menu/title.png"), new Image("res/menu/title2.png")};
+
 
         animateTitle = new Animation(title, duration, true);
+
     }
 
     @Override

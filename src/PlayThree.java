@@ -7,7 +7,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class PlayThree extends BasicGameState {
 
-    private Animation akira, up, down, left, right, stay;
+    private Animation akira, up, down, left, right, stay, effects;
     private Image map;
     private boolean quit = false;
     private int[] duration = {200, 200, 200, 200, 200, 200, 200, 200, 200};
@@ -29,17 +29,20 @@ public class PlayThree extends BasicGameState {
 
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-        map = new Image("res/puzzle copy.png");
+        map = new Image("res/playthree/puzzle copy.png");
+
         Image[] walkUp = {new Image("res/wu1.png"), new Image("res/wu2.png"), new Image("res/wu3.png"), new Image("res/wu4.png"), new Image("res/wu5.png"), new Image("res/wu6.png"), new Image("res/wu7.png"), new Image("res/wu8.png"), new Image("res/wd9.png")};
         Image[] walkDown = {new Image("res/wd1.png"), new Image("res/wd2.png"), new Image("res/wd3.png"), new Image("res/wd4.png"), new Image("res/wd5.png"), new Image("res/wd6.png"), new Image("res/wd7.png"), new Image("res/wd8.png"), new Image("res/wd9.png")};
         Image[] walkLeft = {new Image("res/wl1.png"), new Image("res/wl2.png"), new Image("res/wl3.png"), new Image("res/wl4.png"), new Image("res/wl5.png"), new Image("res/wl6.png"), new Image("res/wl7.png"), new Image("res/wl8.png"), new Image("res/wl9.png")};
         Image[] walkRight = {new Image("res/wr1.png"), new Image("res/wr2.png"), new Image("res/wr3.png"), new Image("res/wr4.png"), new Image("res/wr5.png"), new Image("res/wr6.png"), new Image("res/wr7.png"), new Image("res/wr8.png"), new Image("res/wr9.png")};
         Image[] steady = {new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png")};
+       // Image[] fireworks = {new Image("res/fireworks.png"), new Image("res/fireworks1.png"), new Image("res/fireworks2.png"), new Image("res/fireworks4.png"), new Image("res/fireworks5.png"), new Image("res/fireworks4.png"), new Image("res/fireworks2.png"), new Image("res/fireworks1.png"), new Image("res/fireworks.png")};
         up = new Animation(walkUp, duration, true);
         down = new Animation(walkDown, duration, true);
         left = new Animation(walkLeft, duration, true);
         right = new Animation(walkRight, duration, true);
         stay = new Animation(steady, duration, true);
+        //effects = new Animation(fireworks, duration, true);
 
         akira = stay;
 
@@ -143,8 +146,8 @@ public class PlayThree extends BasicGameState {
             }
         }
       if (charPosX < -875 && (charPosY < -945)) {   // naana sa stairs up
-        // stateBasedGame.enterState(NEXT_LEVEL_AMBOT_UNSA);
-          stateBasedGame.enterState(0, new FadeOutTransition(), new FadeInTransition());
+
+          stateBasedGame.enterState(5, new FadeOutTransition(), new FadeInTransition());
       }
 
         if(input.isKeyDown(Input.KEY_ESCAPE)) {

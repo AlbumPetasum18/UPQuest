@@ -9,6 +9,8 @@ public class Game extends StateBasedGame{
     private static final int welcome = 1;
     private static final int playTwo = 3;
     private static final int playThree = 4;
+    private static final int playFour = 5;
+    private static final int playFive = 6;
 
 
     private Game(String gamename){
@@ -18,6 +20,8 @@ public class Game extends StateBasedGame{
         this.addState(new WelcomeScreen(welcome));
         this.addState(new PlayTwo(playTwo));
         this.addState(new PlayThree(playThree));
+        this.addState(new PlayFour(playFour));
+        this.addState(new PlayFive(playFive));
     }
 
     @Override
@@ -27,6 +31,8 @@ public class Game extends StateBasedGame{
         this.getState(welcome).init(gc, this);
         this.getState(playTwo).init(gc, this);
         this.getState(playThree).init(gc, this);
+        this.getState(playFour).init(gc, this);
+        this.getState(playFive).init(gc, this);
         this.enterState(menu);
     }
 

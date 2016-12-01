@@ -42,15 +42,15 @@ public class PlayTwo extends BasicGameState{
 
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-        map = new Image("res/fanglevel.png");
-        spider1 = new Image("res/spid1.png");
-        spider2 = new Image("res/spid2.png");
-        spider3 = new Image("res/spid3.png");
-        spider4 = new Image("res/spid4.png");
-        spider5 = new Image("res/spid5.png");
-        spider6 = new Image("res/spid6.png");
-        spider7 = new Image("res/spid7.png");
-        gameover = new Image("res/gameOver.png");
+        map = new Image("res/playtwo/fanglevel.png");
+        spider1 = new Image("res/playtwo/spid1.png");
+        spider2 = new Image("res/playtwo/spid2.png");
+        spider3 = new Image("res/playtwo/spid3.png");
+        spider4 = new Image("res/playtwo/spid4.png");
+        spider5 = new Image("res/playtwo/spid5.png");
+        spider6 = new Image("res/playtwo/spid6.png");
+        spider7 = new Image("res/playtwo/spid7.png");
+        gameover = new Image("res/playtwo/gameOver.png");
         playagain = new Image("res/playAgain.png");
 
         back = new Music("res/backtunnel.ogg");
