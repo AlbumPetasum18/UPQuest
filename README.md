@@ -21,7 +21,7 @@ The game is set in a prison tower located under the sea of which the character i
 
 #Game Play
 
-The game is very easy to play since all you have to do is complete all the missions that each level has. The character on this game can easily be controlled by the arrow keys, depending on what the level requires. 
+The game is very easy to play since all you have to do is complete all the missions that each level has. The character on this game can easily be controlled by the arrow keys, or depending on what the level requires. 
 
 #Developers
 
