@@ -3,6 +3,10 @@ CMSC 22 Capstone
 
 University of the Philippines Cebu
 
+**DOWNLOADABLE BETA Version 2**
+
+**Click on this <a href="https://drive.google.com/open?id=0B-U4TqqTklD9TzdSWmlHSThwQWM">LINK</a> to download.**
+
 **DOWNLOADABLE BETA**
 
 **Click on this <a href="https://drive.google.com/open?id=0B-U4TqqTklD9dnNnQlZNSmRwYUU">LINK</a> to download.**
