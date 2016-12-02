@@ -42,15 +42,24 @@ public class PlayFour extends BasicGameState{
     private float shiftX = x + 827;
     private float shiftY = y + 377;
 
+    private Music Peace;
+    private Sound positive,negative,charge,bumiM;
+
     public PlayFour(int state){}
 
     @Override
     public int getID() {
-        return 5;
+        return 6;
     }
 
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
+        //setMusic
+        charge = new Sound("res/jingle03.ogg");
+        positive = new Sound("res/posa.ogg"); //music & sounds
+        negative = new Sound("res/nega.ogg");
+        Peace = new Music("res/peace.wav");
+
         //setFOnt
         Font font = new Font("Serif",Font.BOLD,20);
         uFont = new UnicodeFont(font, font.getSize(),font.isBold(),font.isItalic());
@@ -344,6 +353,7 @@ public class PlayFour extends BasicGameState{
         if(fred == 1 && dred != 1) red.draw(65,290);
         if(fyel == 1 && dyel != 1) yel.draw(105,290);
         if(fvi == 1 && dvi != 1) vi.draw(150,290);
+
         //score.draw(-5,10);
         //  graphics.drawString();("Score\n\t "+ points,22,22);
 
@@ -600,6 +610,7 @@ public class PlayFour extends BasicGameState{
                     cans2 = 4;wrongcrys = 0;
                 }
                 if(cans2 == 2){
+                    positive.play();
                     dyel  = 1;
                 }
                 if(cans1 > 0 && cans2 != 2)
@@ -620,6 +631,7 @@ public class PlayFour extends BasicGameState{
                     cans3 = 4;wrongcrys = 0;
                 }
                 if(cans3 == 3){
+                    positive.play();
                     dblue = 1;
                 }
                 if(cans1 > 0 && cans3 != 3)
@@ -640,6 +652,7 @@ public class PlayFour extends BasicGameState{
                     cans4 = 4;wrongcrys = 0;
                 }
                 if(cans4 == 4){
+                    positive.play();
                     dvi = 1;
                 }
                 if(cans1 > 0 && cans4 != 4)
@@ -649,14 +662,28 @@ public class PlayFour extends BasicGameState{
 
         //displays the crystals if correct and gives a message if wrong.
         if(dred  == 1 && dyel == 1 && dblue == 1 && dvi == 1){
+            Peace.stop();
+            charge.play();
             dlights = 1;
             if(input.isKeyDown(input.KEY_ENTER))
-                stateBasedGame.enterState(6, new FadeOutTransition(), new FadeInTransition());
+                charge.stop();
+                stateBasedGame.enterState(7, new FadeOutTransition(), new FadeInTransition());
         }
 
         //the player quits
-        if (input.isKeyDown(input.KEY_ESCAPE)) {
+        if(input.isKeyDown(Input.KEY_ESCAPE)){
             quit = true;
+        }
+        if(quit){
+            if(input.isKeyDown(Input.KEY_R)){
+                quit = false;
+            }
+            if(input.isKeyDown(Input.KEY_M)){
+                stateBasedGame.enterState(0, new FadeOutTransition(), new FadeInTransition());
+            }
+            if(input.isKeyDown(Input.KEY_Q)){
+                System.exit(0);
+            }
         }
     }
 
@@ -674,15 +701,15 @@ public class PlayFour extends BasicGameState{
         }catch (SlickException e){
             e.printStackTrace();
         }
-       //music
+        Peace.loop();
+        Peace.setVolume(7.0f);
     }
-
     public void leave(GameContainer gc, StateBasedGame sbg){
         try{
             super.leave(gc, sbg);
         }catch (SlickException e){
             e.printStackTrace();
         }
-       //music
+        Peace.stop();
     }
 }

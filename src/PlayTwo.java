@@ -8,7 +8,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 public class PlayTwo extends BasicGameState{
 
     private Animation akira, up, down, left, right, stay, complete;
-    private Image map, spider1, spider2, spider3, spider4, spider5, spider6, spider7, gameover, playagain;
+    private Image map, spider1, spider2, spider3, spider4, spider5, spider6, spider7, gameover, playagain, instruction;
 
     private boolean quit = false;
     private boolean gameOver = false;
@@ -24,6 +24,7 @@ public class PlayTwo extends BasicGameState{
     private float web1 = 350, web2 = 251, web3 = -30, web4 = 380, web5 = 300, web6 = -1, web7 = 350;
     private float speed1, speed2, speed3, speed4, speed5, speed6, speed7;
     private float rectwidth = 0.5f;
+    private boolean start = true;
 
     private Music back;
     private Sound collide, gov;
@@ -37,7 +38,7 @@ public class PlayTwo extends BasicGameState{
 
     @Override
     public int getID() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -51,6 +52,7 @@ public class PlayTwo extends BasicGameState{
         spider6 = new Image("res/playtwo/spid6.png");
         spider7 = new Image("res/playtwo/spid7.png");
         gameover = new Image("res/playtwo/gameOver.png");
+        instruction = new Image("res/playtwo/spiderInstruct.png");
         playagain = new Image("res/playAgain.png");
 
         back = new Music("res/backtunnel.ogg");
@@ -79,6 +81,7 @@ public class PlayTwo extends BasicGameState{
         input = gameContainer.getInput();
 
         map.draw(0, 0, map.getWidth(), map.getHeight());
+
 
         //graphics.drawString("Akira X: " + shiftX + "\nAkira Y: " + shiftY, 400, 25);
         akira.draw(shiftX, shiftY, akira.getWidth(), akira.getHeight());
@@ -155,10 +158,12 @@ public class PlayTwo extends BasicGameState{
              // INSERT NEXT LEVEL
             complete.draw(60, 10);
             if(input.isKeyDown(Input.KEY_ENTER)) {
-                stateBasedGame.enterState(4, new FadeOutTransition(), new FadeInTransition());
+                stateBasedGame.enterState(5, new FadeOutTransition(), new FadeInTransition());
             }
         }
-
+        if(start){
+            instruction.draw(50, 10);
+        }
         if(quit){
             graphics.drawString("Resume (R)", 250, 100);
             graphics.drawString("Main Menu (M)", 250, 150);
@@ -171,7 +176,6 @@ public class PlayTwo extends BasicGameState{
 
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) throws SlickException {
-
 
         akira = stay;
 
@@ -227,6 +231,10 @@ public class PlayTwo extends BasicGameState{
         web5 -= i * speed5;
         web6 -= i * speed6;
         web7 -= i * speed7;
+
+        if(input.isKeyDown(Input.KEY_Y)){
+            start = false;
+        }
 
         if(input.isKeyDown(Input.KEY_UP)){
             akira = up;

@@ -1,52 +1,55 @@
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
+
 import java.util.Random;
 
 public class PlayFive extends BasicGameState {
 
-    private Animation map, akira, up, down, left, right, stay, flyleft, flyright, bird, fromtunnel, danger;
-    private Image tunnel, gameover, levelComp, playagain;
+    private Animation map, akira, left, right, stay, flyleft, flyright, bird, fromtunnel, danger;
+    private Image tunnel, playagain, instruction;
     private Music background;
-    private Sound bubbles, fall, GOV;
-    private boolean quit = false;
+    private Sound bubbles, fall;
+
     private int[] duration = {200, 200, 200, 200, 200, 200, 200, 200, 200};
     private int[] durationBird = {80, 80, 80, 80, 80, 80, 80, 80, 80};
     private int[] durationLava = {300, 300, 300, 300, 300, 300, 300, 300, 300};
     private int rightLimit = 620, leftLimit = -30;
     private int upLimit = 140, downLimit = 216;
+    private int mousePosX, mousePosY;
+
     private float shiftX = 300;
     private float shiftY = -50;
     private float birdPosY;
     private float birdPosX = -400;
     private float speedBirdx, speedBirdy, leftlimitBird = -13, rightlimitBird = 600;
-    private boolean onGround = false, dangerZone = false, win = false;
-    private boolean startgame = false;
+
+    private boolean onGround = false, dangerZone = false, win = false, quit = false, start = true, levelComplete = false;
+
     private Random Y;
 
     public PlayFive(int state){}
 
     @Override
     public int getID() {
-        return 6;
+        return 7;
     }
 
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
         tunnel = new Image("res/playfive/tunnel.png");
         playagain = new Image("res/playAgain.png");
-       /* levelComp = new Image("gstar.png");
-        gameover = new Image("GOV.png");*/
+        instruction = new Image("res/playfive/birdInstruct.png");
 
         background = new Music("res/musicPlayThree.ogg");
         bubbles = new Sound("res/bub.ogg");
         fall = new Sound("res/fall.wav");
-        GOV = new Sound("res/gov.ogg");
 
 
         Image[] back = {new Image("res/playfive/back1.png"), new Image("res/playfive/back2.png"), new Image("res/playfive/back3.png"), new Image("res/playfive/back4.png"), new Image("res/playfive/back1.png"), new Image("res/playfive/back2.png"), new Image("res/playfive/back3.png"), new Image("res/playfive/back4.png"), new Image("res/playfive/back1.png")};
-       // Image[] walkUp = {new Image("res/wu1.png"), new Image("res/wu2.png"), new Image("res/wu3.png"), new Image("res/wu4.png"), new Image("res/wu5.png"), new Image("res/wu6.png"), new Image("res/wu7.png"), new Image("res/wu8.png"), new Image("res/wd9.png")};
-        Image[] walkDown = {new Image("res/wd1.png"), new Image("res/wd2.png"), new Image("res/wd3.png"), new Image("res/wd4.png"), new Image("res/wd5.png"), new Image("res/wd6.png"), new Image("res/wd7.png"), new Image("res/wd8.png"), new Image("res/wd9.png")};
         Image[] walkLeft = {new Image("res/wl1.png"), new Image("res/wl2.png"), new Image("res/wl3.png"), new Image("res/wl4.png"), new Image("res/wl5.png"), new Image("res/wl6.png"), new Image("res/wl7.png"), new Image("res/wl8.png"), new Image("res/wl9.png")};
         Image[] walkRight = {new Image("res/wr1.png"), new Image("res/wr2.png"), new Image("res/wr3.png"), new Image("res/wr4.png"), new Image("res/wr5.png"), new Image("res/wr6.png"), new Image("res/wr7.png"), new Image("res/wr8.png"), new Image("res/wr9.png")};
         Image[] steady = {new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png"), new Image("res/s1.png")};
@@ -56,7 +59,6 @@ public class PlayFive extends BasicGameState {
         Image[] dangerZone = {new Image("res/playfive/dangerZone.png"), new Image("res/playfive/dangerZone1.png"), new Image("res/playfive/dangerZone2.png"), new Image("res/playfive/dangerZone3.png"), new Image("res/playfive/dangerZone4.png"), new Image("res/playfive/dangerZone.png"), new Image("res/playfive/dangerZone1.png"), new Image("res/playfive/dangerZone2.png"), new Image("res/playfive/dangerZone3.png")};
 
         map = new Animation(back, durationLava, true);
-        down = new Animation(walkDown, duration, true);
         left = new Animation(walkLeft, duration, true);
         right = new Animation(walkRight, duration, true);
         stay = new Animation(steady, duration, true);
@@ -66,8 +68,6 @@ public class PlayFive extends BasicGameState {
         danger = new Animation (dangerZone, duration, true);
 
         akira = stay;
-        background.loop();
-        background.setVolume(1.5f);
         Y = new Random();
         birdPosY = Y.nextInt(10) + -30;
 
@@ -75,28 +75,23 @@ public class PlayFive extends BasicGameState {
 
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
-        if(!startgame){
-            //draw kato instuctions
-        }
+
         map.draw(0, 0, map.getWidth(), map.getHeight());
         akira.draw(shiftX, shiftY, akira.getWidth(), akira.getHeight());
         tunnel.draw(265, 0, 100, 80);
+
         if(onGround){
             bird.draw(birdPosX, birdPosY, bird.getWidth() - 10, bird.getHeight() - 9);
         }
 
         if(dangerZone && shiftY > 215){
-            GOV.loop();
-            map.stop();
-            background.stop();
-            bubbles.stop();
             danger.draw(50,100);
+            playagain.draw(250, 250);
             shiftY += 0.1f;
-            //playagain.draw(250, 250);
         }
-        else{
-            bubbles.play(0.4f, 0.2f);
-        }
+
+        bubbles.play(0.4f, 0.2f);
+
         if(!onGround){
             fall.play();
 
@@ -113,7 +108,9 @@ public class PlayFive extends BasicGameState {
             dangerZone = false;
         }
 
-        bubbles.play(0.4f, 0.2f);
+        if(start){
+            instruction.draw(50, 10);
+        }
 
         if(quit){
             graphics.drawString("Resume (R)", 250, 100);
@@ -131,11 +128,10 @@ public class PlayFive extends BasicGameState {
         Input input = gameContainer.getInput();
         akira = stay;
 
-       /* if(){
-            //////// mousepressed blah blah
-            startgame = true;
+       if(input.isKeyDown(Input.KEY_Y)){
+           start = false;
+       }
 
-        }*/
         if(birdPosX < leftlimitBird){
             speedBirdx = -.2f;
             bird = flyleft;
@@ -194,7 +190,21 @@ public class PlayFive extends BasicGameState {
                 shiftX += i * .1f;
             }
         }
+        if(win && (shiftX < -10 || shiftX > 600)){
+            levelComplete = true;
+        }
+        if(levelComplete){
+            stateBasedGame.enterState(8, new FadeOutTransition(), new FadeInTransition());
+        }
 
+        mousePosX = Mouse.getX();
+        mousePosY = Mouse.getY();
+
+        if((mousePosX > 250 && mousePosX < 250+playagain.getWidth()) && (mousePosY > 80 && mousePosY < 110)){
+            if(Mouse.isButtonDown(0)) {
+                reset();
+            }
+        }
 
         if(input.isKeyDown(Input.KEY_ESCAPE)){
             quit = true;
@@ -211,5 +221,34 @@ public class PlayFive extends BasicGameState {
             }
         }
 
+    }
+
+    public void reset(){
+        birdPosY = Y.nextInt(10) + -30;
+        birdPosX = -400;
+        shiftX = 300;
+        shiftY = 216;
+        win = false;
+        dangerZone = false;
+    }
+
+    public void enter(GameContainer gameContainer, StateBasedGame stateBasedGame){
+        try{
+            super.enter(gameContainer, stateBasedGame);
+        }catch (SlickException e) {
+            e.printStackTrace();
+        }
+        background.loop();
+        background.setVolume(1.5f);
+        bubbles.play(0.4f, 0.2f);
+    }
+
+    public void leave(GameContainer gameContainer, StateBasedGame stateBasedGame){
+        try{
+            super.leave(gameContainer, stateBasedGame);
+        }catch (SlickException e){
+            e.printStackTrace();
+        }
+        bubbles.stop();
     }
 }

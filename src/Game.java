@@ -5,12 +5,14 @@ public class Game extends StateBasedGame{
 
     private static final String gamename = "UP Quest";
     private static final int menu = 0;
-    private static final int play = 2;
-    private static final int welcome = 1;
-    private static final int playTwo = 3;
-    private static final int playThree = 4;
-    private static final int playFour = 5;
-    private static final int playFive = 6;
+    private static final int intro = 1;
+    private static final int welcome = 2;
+    private static final int play = 3;
+    private static final int playTwo = 4;
+    private static final int playThree = 5;
+    private static final int playFour = 6;
+    private static final int playFive = 7;
+    private static final int ending = 8;
 
 
     private Game(String gamename){
@@ -22,6 +24,8 @@ public class Game extends StateBasedGame{
         this.addState(new PlayThree(playThree));
         this.addState(new PlayFour(playFour));
         this.addState(new PlayFive(playFive));
+        this.addState(new Ending(ending));
+        this.addState(new IntroMessage(intro));
     }
 
     @Override
@@ -33,6 +37,9 @@ public class Game extends StateBasedGame{
         this.getState(playThree).init(gc, this);
         this.getState(playFour).init(gc, this);
         this.getState(playFive).init(gc, this);
+        this.getState(ending).init(gc, this);
+        this.getState(intro).init(gc, this);
+        gc.setShowFPS(false);
         this.enterState(menu);
     }
 

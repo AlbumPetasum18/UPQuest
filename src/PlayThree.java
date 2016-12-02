@@ -8,8 +8,8 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 public class PlayThree extends BasicGameState {
 
     private Animation akira, up, down, left, right, stay, effects;
-    private Image map;
-    private boolean quit = false;
+    private Image map, instruction;
+    private boolean quit = false, start = true;
     private int[] duration = {200, 200, 200, 200, 200, 200, 200, 200, 200};
     private float charPosX = -135;
     private float charPosY = -55;
@@ -24,12 +24,13 @@ public class PlayThree extends BasicGameState {
 
     @Override
     public int getID() {
-        return 4;
+        return 5;
     }
 
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
         map = new Image("res/playthree/puzzle copy.png");
+        instruction = new Image("res/playthree/mazeInstruct.png");
 
         Image[] walkUp = {new Image("res/wu1.png"), new Image("res/wu2.png"), new Image("res/wu3.png"), new Image("res/wu4.png"), new Image("res/wu5.png"), new Image("res/wu6.png"), new Image("res/wu7.png"), new Image("res/wu8.png"), new Image("res/wd9.png")};
         Image[] walkDown = {new Image("res/wd1.png"), new Image("res/wd2.png"), new Image("res/wd3.png"), new Image("res/wd4.png"), new Image("res/wd5.png"), new Image("res/wd6.png"), new Image("res/wd7.png"), new Image("res/wd8.png"), new Image("res/wd9.png")};
@@ -42,7 +43,6 @@ public class PlayThree extends BasicGameState {
         left = new Animation(walkLeft, duration, true);
         right = new Animation(walkRight, duration, true);
         stay = new Animation(steady, duration, true);
-        //effects = new Animation(fireworks, duration, true);
 
         akira = stay;
 
@@ -56,6 +56,10 @@ public class PlayThree extends BasicGameState {
         akira.draw(shiftX, shiftY, akira.getWidth(), akira.getHeight());
 
         //graphics.drawString("akira x: " + charPosX + "\nakira y: " + charPosY, 400, 20);
+
+        if(start){
+            instruction.draw(50, 10);
+        }
 
         if(quit){
             graphics.drawString("Resume (R)", 250, 100);
@@ -72,6 +76,10 @@ public class PlayThree extends BasicGameState {
         Input input = gameContainer.getInput();
 
         akira = stay;
+
+        if(input.isKeyDown(Input.KEY_Y)){
+            start = false;
+        }
 
         if(input.isKeyDown(Input.KEY_UP)) {
             akira = up;
@@ -147,7 +155,7 @@ public class PlayThree extends BasicGameState {
         }
       if (charPosX < -875 && (charPosY < -945)) {   // naana sa stairs up
 
-          stateBasedGame.enterState(5, new FadeOutTransition(), new FadeInTransition());
+          stateBasedGame.enterState(6, new FadeOutTransition(), new FadeInTransition());
       }
 
         if(input.isKeyDown(Input.KEY_ESCAPE)) {
