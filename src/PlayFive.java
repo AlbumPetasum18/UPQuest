@@ -35,7 +35,7 @@ public class PlayFive extends BasicGameState {
 
     @Override
     public int getID() {
-        return 7;
+        return 8;
     }
 
     @Override
@@ -194,7 +194,7 @@ public class PlayFive extends BasicGameState {
             levelComplete = true;
         }
         if(levelComplete){
-            stateBasedGame.enterState(8, new FadeOutTransition(), new FadeInTransition());
+            stateBasedGame.enterState(9, new FadeOutTransition(), new FadeInTransition());
         }
 
         mousePosX = Mouse.getX();

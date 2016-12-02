@@ -38,7 +38,7 @@ public class PlayTwo extends BasicGameState{
 
     @Override
     public int getID() {
-        return 4;
+        return 5;
     }
 
     @Override
@@ -158,7 +158,7 @@ public class PlayTwo extends BasicGameState{
              // INSERT NEXT LEVEL
             complete.draw(60, 10);
             if(input.isKeyDown(Input.KEY_ENTER)) {
-                stateBasedGame.enterState(5, new FadeOutTransition(), new FadeInTransition());
+                stateBasedGame.enterState(6, new FadeOutTransition(), new FadeInTransition());
             }
         }
         if(start){

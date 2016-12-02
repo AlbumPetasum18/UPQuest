@@ -22,7 +22,7 @@ public class Ending extends BasicGameState{
 
     @Override
     public int getID() {
-        return 8;
+        return 9;
     }
 
     @Override

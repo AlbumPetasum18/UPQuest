@@ -24,7 +24,7 @@ public class PlayThree extends BasicGameState {
 
     @Override
     public int getID() {
-        return 5;
+        return 6;
     }
 
     @Override
@@ -155,7 +155,7 @@ public class PlayThree extends BasicGameState {
         }
       if (charPosX < -875 && (charPosY < -945)) {   // naana sa stairs up
 
-          stateBasedGame.enterState(6, new FadeOutTransition(), new FadeInTransition());
+          stateBasedGame.enterState(7, new FadeOutTransition(), new FadeInTransition());
       }
 
         if(input.isKeyDown(Input.KEY_ESCAPE)) {

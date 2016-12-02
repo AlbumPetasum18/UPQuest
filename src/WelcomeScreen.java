@@ -21,7 +21,7 @@ public class WelcomeScreen extends BasicGameState{
 
     @Override
     public int getID() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class WelcomeScreen extends BasicGameState{
 
         if((mousePosX > 275 && mousePosX < 365) && (mousePosY > 125 && mousePosY < 175)){
             if(Mouse.isButtonDown(0)) {
-                stateBasedGame.enterState(3, new FadeOutTransition(), new FadeInTransition());
+                stateBasedGame.enterState(4, new FadeOutTransition(), new FadeInTransition());
             }
         }
     }

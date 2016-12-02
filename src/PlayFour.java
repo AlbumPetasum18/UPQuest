@@ -49,7 +49,7 @@ public class PlayFour extends BasicGameState{
 
     @Override
     public int getID() {
-        return 6;
+        return 7;
     }
 
     @Override
@@ -667,7 +667,7 @@ public class PlayFour extends BasicGameState{
             dlights = 1;
             if(input.isKeyDown(input.KEY_ENTER))
                 charge.stop();
-                stateBasedGame.enterState(7, new FadeOutTransition(), new FadeInTransition());
+                stateBasedGame.enterState(8, new FadeOutTransition(), new FadeInTransition());
         }
 
         //the player quits

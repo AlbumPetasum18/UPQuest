@@ -4,33 +4,37 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-public class IntroMessage extends BasicGameState{
+public class IntroMessage2 extends BasicGameState{
+
+    private Animation intro;
 
     private Music back;
 
-    private Image mess;
+    private int[] duration = {200, 200, 200};
 
     private boolean quit = false;
 
-    public IntroMessage(int state){}
+    public IntroMessage2(int state){}
 
     @Override
     public int getID() {
-        return 1;
+        return 2;
     }
 
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
+        Image[] message = {new Image("res/intromessage/intro.png"), new Image("res/intromessage/intro1.png"), new Image("res/intromessage/intro2.png")};
+
+        intro = new Animation(message, duration, true);
 
         back = new Music("res/back.ogg");
-
-        mess = new Image("res/intromessage/intro0.png");
 
     }
 
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
-        mess.draw(50, 10);
+
+        intro.draw(50, 10);
     }
 
     @Override
@@ -38,7 +42,7 @@ public class IntroMessage extends BasicGameState{
         Input input = gameContainer.getInput();
 
         if(input.isKeyDown(Input.KEY_ENTER)){
-            stateBasedGame.enterState(2, new FadeOutTransition(), new FadeInTransition());
+            stateBasedGame.enterState(3, new FadeOutTransition(), new FadeInTransition());
         }
 
         if(input.isKeyDown(Input.KEY_ESCAPE)){

@@ -108,7 +108,7 @@ public class Play extends BasicGameState{
         if(fbat && fhat && fhandcuff && fgun && fclock && fshoe && fbadge){
             complete.draw(60, 10);
             if(input.isKeyDown(Input.KEY_ENTER)){
-                sbg.enterState(4, new FadeOutTransition(), new FadeInTransition());
+                sbg.enterState(5, new FadeOutTransition(), new FadeInTransition());
             }
         }
 
@@ -236,7 +236,7 @@ public class Play extends BasicGameState{
 
     @Override
     public int getID() {
-        return 3;
+        return 4;
     }
 
 }
